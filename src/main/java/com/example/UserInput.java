@@ -78,7 +78,7 @@ public class UserInput implements AutoCloseable{
                         System.out.println(rowsAffected2 + " ligne(s) insérée(s) avec succès.");
                     }
                 } catch (SQLException e) {
-                    System.err.println("Erreur lors de l'insertion de données : " + e.getMessage());
+                    System.err.println("Erreur, : " + e.getMessage());
                 }
             }else{                
                 Actuateur act = new Actuateur();
@@ -106,10 +106,7 @@ public class UserInput implements AutoCloseable{
                         statement.setString(2, act.nom);
                         statement.setString(3, act.typeObjet);
                         statement.setString(4, act.etat);
-        
-                        // Exécution de la requête
-                        int rowsAffected = statement.executeUpdate();
-                        System.out.println(rowsAffected + " ligne(s) insérée(s) avec succès.");
+                        statement.executeUpdate();
 
                     }
                     try (PreparedStatement statement2 = CheckDb.con.prepareStatement(sql2)) {
@@ -117,12 +114,10 @@ public class UserInput implements AutoCloseable{
                         statement2.setInt(2, act.id);
                         statement2.setString(3, act.action);
                         statement2.setString(4, act.typeActuateur);
-                         // Exécution de la requête
-                        int rowsAffected2 = statement2.executeUpdate();
-                        System.out.println(rowsAffected2 + " ligne(s) insérée(s) avec succès.");
+                        statement2.executeUpdate();
                     }
                 } catch (SQLException e) {
-                    System.err.println("Erreur lors de l'insertion de données : " + e.getMessage());
+                    System.err.println("Erreur : " + e.getMessage());
                 }
             }
 
@@ -135,7 +130,6 @@ public class UserInput implements AutoCloseable{
                 ResultSet rs = CheckDb.con.prepareStatement(sql).executeQuery();
                 System.out.println("objet_id\tnom\t\tetat\t\tobjet_type");
      
-                // Condition check
                 while (rs.next()) {
      
                     int objet_id = rs.getInt("objet_id");
@@ -146,10 +140,8 @@ public class UserInput implements AutoCloseable{
                 }
             }
      
-            // Catch block to handle exception
             catch (SQLException e) {
      
-                // Print exception pop-up on screen
                 System.out.println(e);
             }
         }
@@ -217,6 +209,5 @@ public class UserInput implements AutoCloseable{
         }
         @Override
         public void close() throws Exception {
-            // TODO Auto-generated method stub
             throw new UnsupportedOperationException("fermeture des ressources");
         }}
