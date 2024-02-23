@@ -1,6 +1,6 @@
 package com.example;
 
-public class Capteur extends ObjetConnecte {
+public class Capteur extends Obj {
     String uniteMesure;
     String donneeCapturee;
     String typeCapteur;

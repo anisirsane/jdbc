@@ -1,12 +1,12 @@
 package com.example;
 
-public class ObjetConnecte {
+public class Obj {
     String nom, typeObjet, etat;
     int id;
-    public ObjetConnecte(){
+    public Obj(){
 
     }
-    public ObjetConnecte(int id, String nom, String typeObjet, String etat) {
+    public Obj(int id, String nom, String typeObjet, String etat) {
         this.id = id;
         this.nom = nom;
         this.typeObjet = typeObjet;

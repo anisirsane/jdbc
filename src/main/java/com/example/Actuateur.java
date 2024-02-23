@@ -1,6 +1,6 @@
 package com.example;
 
-public class Actuateur extends ObjetConnecte{
+public class Actuateur extends Obj{
     String action;
     String typeActuateur;
     int idActuateur;

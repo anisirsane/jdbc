@@ -64,9 +64,9 @@ public class CheckDb {
             try{
                 con = DriverManager.getConnection( hostDB, username, password );
                 stmt = CheckDb.con.createStatement();
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ObjetConnecte (objet_id INT PRIMARY KEY, nom VARCHAR(100),etat VARCHAR(20),objet_type VARCHAR(50));");
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Capteur (capteur_id INT PRIMARY KEY,objet_id INT,unite_mesure VARCHAR(20),donnee_captee VARCHAR(255),type_capteur VARCHAR(50),FOREIGN KEY (objet_id) REFERENCES ObjetConnecte(objet_id) ON DELETE CASCADE);");
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Actuateur (actuateur_id INT PRIMARY KEY,objet_id INT,action VARCHAR(255),type_actuateur VARCHAR(50),FOREIGN KEY (objet_id) REFERENCES ObjetConnecte(objet_id) ON DELETE CASCADE);");
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Obj (objet_id SERIAL PRIMARY KEY, nom VARCHAR(100),etat VARCHAR(20),objet_type VARCHAR(50));");
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Capteur (capteur_id SERIAL PRIMARY KEY,objet_id SERIAL,unite_mesure VARCHAR(20),donnee_captee VARCHAR(1000),type_capteur VARCHAR(50),FOREIGN KEY (objet_id) REFERENCES Obj(objet_id) ON DELETE CASCADE);");
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Actuateur (actuateur_id SERIAL PRIMARY KEY,objet_id SERIAL,action VARCHAR(255),type_actuateur VARCHAR(50),FOREIGN KEY (objet_id) REFERENCES Obj(objet_id) ON DELETE CASCADE);");
             }catch(SQLException e) {
                 e.printStackTrace();
             }
