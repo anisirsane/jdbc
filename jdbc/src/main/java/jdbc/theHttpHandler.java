@@ -21,7 +21,7 @@ class TheHttpHandler implements HttpHandler {
     
     if("POST".equals(exchange.getRequestMethod())) { 
       BufferedReader reader = new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
-      String requestBody = reader.readLine();
+      requestBody = reader.readLine();
       reader.close();
       System.out.println(requestBody);
       exchange.sendResponseHeaders(200, 0);
@@ -29,4 +29,7 @@ class TheHttpHandler implements HttpHandler {
       
     }
   }
+  public String getRequestBody() {
+    return requestBody;
+}
 }

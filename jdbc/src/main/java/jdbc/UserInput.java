@@ -1,110 +1,100 @@
 package jdbc;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
         import java.util.*;
+        
+        import com.fasterxml.jackson.databind.ObjectMapper;
 public class UserInput implements AutoCloseable{
-        public static int choixMenu(){
-            Scanner choice = new Scanner(System.in);
-            //affichage des options de menu
-            System.out.println ("Menu:choisir un des fonctionalites du CRUD");
-            System.out.println ("1. creer un nouveau appareil: ");
-            System.out.println ("2. modifier un appareil: ");
-            System.out.println ("3. affichet touts les appareils: ");
-            System.out.println ("4. supprimer un appareil: ");
-            System.out.println ("Entrez votre choix:");
-            //recuperation de choix et les retourner
-            int choix = choice.nextInt();   
-            return choix;
-            } 
-        public static void insertObjet() throws Exception {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("inserer le type d'objet");
+        // public static int choixMenu(){
+        //     Scanner choice = new Scanner(System.in);
+        //     //affichage des options de menu
+        //     System.out.println ("Menu:choisir un des fonctionalites du CRUD");
+        //     System.out.println ("1. creer un nouveau appareil: ");
+        //     System.out.println ("2. modifier un appareil: ");
+        //     System.out.println ("3. affichet touts les appareils: ");
+        //     System.out.println ("4. supprimer un appareil: ");
+        //     System.out.println ("Entrez votre choix:");
+        //     //recuperation de choix et les retourner
+        //     int choix = choice.nextInt();   
+        //     return choix;
+        //     } 
+        public static void insertObjet(String data, int choice) throws Exception {
 
-            System.out.println("1 pour capteur et 2 pour actuateur");
-            int choicedevice = sc.nextInt();
-            sc.nextLine();  
-            while(choicedevice!=1 && choicedevice!=2){
-                System.out.println("ressayer, ce n'est pas valide : ");
-                choicedevice = sc.nextInt();
-                sc.nextLine();  
-                if(choicedevice==1 || choicedevice == 2){
-                    break;
-                }
-            }
-            if (choicedevice == 1){
-                Capteur cpt = new Capteur();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+// source: https://devqa.io/map-json-string-to-java-object/
+            if (choice == 1){
+                Capteur cpt = objectMapper.readValue(data, Capteur.class);
+
                 cpt.typeObjet="capteur";
-                // System.out.println("inserer l'id d'objet'");
-                // cpt.id= sc.nextInt();
-                sc.nextLine();
-                System.out.println("inserer le nom du capteur");
-                cpt.nom = sc.nextLine();
-                boolean checkNom = cpt.nom.matches(".*[a-zA-Z]+.*");
-                //source : https://stackoverflow.com/questions/14278170/how-to-check-whether-a-string-contains-at-least-one-alphabet-in-java
-                while(!checkNom){
-                    System.out.println("erreur, ca doit contenir au moins une lettre, ressayer: ");
-                    cpt.nom = sc.nextLine();
-                    checkNom = cpt.nom.matches(".*[a-zA-Z]+.*");
-                    if(checkNom){
-                        break;
-                    }
-                }
+                    // boolean checkNom = cpt.nom.matches(".*[a-zA-Z]+.*");
+                    // //source : https://stackoverflow.com/questions/14278170/how-to-check-whether-a-string-contains-at-least-one-alphabet-in-java
+                    // while(!checkNom){
+                    //     System.out.println("erreur, ca doit contenir au moins une lettre, ressayer: ");
+                    //     cpt.nom = sc.nextLine();
+                    //     checkNom = cpt.nom.matches(".*[a-zA-Z]+.*");
+                    //     if(checkNom){
+                    //         break;
+                    //     }
+                    // }
                 // System.out.println("inserer l'id du capteur");
                 // cpt.idCapteur = sc.nextInt();
                 // sc.nextLine();
-                System.out.println("inserer l'etat du capteur");
-                cpt.etat = sc.nextLine();
-                boolean checketat = cpt.etat.matches(".*[a-zA-Z]+.*"); 
-                while(!checketat){
-                    System.out.println("erreur, ca doit contenir au moins une lettre, ressayer: ");
-                    cpt.etat = sc.nextLine();
-                    checketat = cpt.etat.matches(".*[a-zA-Z]+.*");
-                    if(checketat){
-                        break;
-                    }
-                }
-                System.out.println("inserer l'unite de mesure");
-                cpt.uniteMesure = sc.nextLine(); 
-                boolean checkuniteMesure = cpt.uniteMesure.matches(".*[a-zA-Z]+.*");
-                while(!checkuniteMesure){
-                    System.out.println("erreur, ca doit contenir au moins une lettre, ressayer: ");
-                    cpt.uniteMesure = sc.nextLine();
-                    checkuniteMesure = cpt.uniteMesure.matches(".*[a-zA-Z]+.*");
-                    if(checkuniteMesure){
-                        break;
-                    }
-                }   
+                // System.out.println("inserer l'etat du capteur");
+                // cpt.etat = sc.nextLine();
+                // boolean checketat = cpt.etat.matches(".*[a-zA-Z]+.*"); 
+                // while(!checketat){
+                //     System.out.println("erreur, ca doit contenir au moins une lettre, ressayer: ");
+                //     cpt.etat = sc.nextLine();
+                //     checketat = cpt.etat.matches(".*[a-zA-Z]+.*");
+                //     if(checketat){
+                //         break;
+                //     }
+                // }
+                // System.out.println("inserer l'unite de mesure");
+                // cpt.uniteMesure = sc.nextLine(); 
+                // cpt.donneeCapturee = TheHttpHandler.requestBody;
+                // boolean checkuniteMesure = cpt.uniteMesure.matches(".*[a-zA-Z]+.*");
+                // while(!checkuniteMesure){
+                //     System.out.println("erreur, ca doit contenir au moins une lettre, ressayer: ");
+                //     cpt.uniteMesure = sc.nextLine();
+                //     checkuniteMesure = cpt.uniteMesure.matches(".*[a-zA-Z]+.*");
+                //     if(checkuniteMesure){
+                //         break;
+                //     }
+                // }   
                 // cpt.donneeCapturee = "1";
-                cpt.donneeCapturee = generateData(-20,40);
+                // cpt.donneeCapturee = generateData(-20,40);
 
-                System.out.println("inserer le type du capteur");
-                cpt.typeCapteur = sc.nextLine();  
-                boolean checktypeCapteur = cpt.typeCapteur.matches(".*[a-zA-Z]+.*");
-                while(!checktypeCapteur){
-                    System.out.println("erreur, ca doit contenir au moins une lettre, ressayer: ");
-                    cpt.typeCapteur = sc.nextLine();
-                    checktypeCapteur = cpt.typeCapteur.matches(".*[a-zA-Z]+.*");
-                    if(checktypeCapteur){
-                        break;
-                    }
-                }
-                UserInputMu.showObjet();
-                System.out.println("choisissez de l'ajouter a quelle microcontrolleur : ");
-                int choicemu = sc.nextInt();
+                // System.out.println("inserer le type du capteur");
+                // cpt.typeCapteur = sc.nextLine();  
+                // boolean checktypeCapteur = cpt.typeCapteur.matches(".*[a-zA-Z]+.*");
+                // while(!checktypeCapteur){
+                //     System.out.println("erreur, ca doit contenir au moins une lettre, ressayer: ");
+                //     cpt.typeCapteur = sc.nextLine();
+                //     checktypeCapteur = cpt.typeCapteur.matches(".*[a-zA-Z]+.*");
+                //     if(checktypeCapteur){
+                //         break;
+                //     }
+                // }
+                // UserInputMu.showObjet();
+                // System.out.println("choisissez de l'ajouter a quelle microcontrolleur : ");
+                // int choicemu = sc.nextInt();
                          
                 try {
                     // https://stackoverflow.com/questions/19167349/postgresql-insert-from-select-returning-id
                    
-                    String sql = "INSERT INTO Obj (objetcon_id, nom,etat,objet_type) VALUES (?,?, ?, ?) RETURNING objet_id";
+                    String sql = "INSERT INTO Obj (objetcon_id, nom,etat,objet_type) VALUES (?,?, ?) RETURNING objet_id";
                     String sql2  = "INSERT INTO Capteur (objet_id, unite_mesure, donnee_captee,type_capteur) VALUES (?, ?, ?,?)";
                     try (PreparedStatement statement = CheckDb.con.prepareStatement(sql)) {
                         // statement.setInt(1, cpt.id);
-                        statement.setInt(1, choicemu);
-                        statement.setString(2, cpt.nom);
-                        statement.setString(3, cpt.typeObjet);
-                        statement.setString(4, cpt.etat);
+                        // statement.setInt(1, choicemu);
+                        statement.setString(1, cpt.nom);
+                        statement.setString(2, cpt.typeObjet);
+                        statement.setString(3, cpt.etat);
         
                         // Exécution de la requête
                         // statement.executeUpdate();
@@ -113,7 +103,7 @@ public class UserInput implements AutoCloseable{
                         ResultSet generatedKeys = statement.executeQuery();
                         if (generatedKeys.next()) {
                             cpt.id = generatedKeys.getInt(1);
-                            System.out.println("l'id d'objet : "+cpt.id);
+                            // System.out.println("l'id d'objet : "+cpt.id);
                             try (PreparedStatement statement2 = CheckDb.con.prepareStatement(sql2)) {
                                 statement2.setInt(1, cpt.id);
                                 // statement2.setInt(2, cpt.idCapteur);
@@ -135,36 +125,37 @@ public class UserInput implements AutoCloseable{
 
             } finally{
             } 
-        }else{                
-                Actuateur act = new Actuateur();
-                act.typeObjet="actuateur";
-                System.out.println("inserer le nom du l'actuateur ");                      
-                act.nom = sc.nextLine();
-                System.out.println("inserer l'id du l'actuateur ");
-                act.idActuateur  = sc.nextInt();
-                sc.nextLine();
-                System.out.println("inserer l'etat du l'actuateur ");
-                act.etat = sc.nextLine(); 
-                System.out.println("inserer le type du l'actuateur ");
-                act.typeActuateur  = sc.nextLine();     
-                UserInputMu.showObjet();
-                System.out.println("choisissez de l'ajouter a quelle microcontrolleur : ");
-                int choicemu = sc.nextInt();      
+        }else{   
+            Actuateur act = objectMapper.readValue(data, Actuateur.class);
+             
+                // act.typeObjet="actuateur";
+                // System.out.println("inserer le nom du l'actuateur ");                      
+                // act.nom = sc.nextLine();
+                // System.out.println("inserer l'id du l'actuateur ");
+                // act.idActuateur  = sc.nextInt();
+                // sc.nextLine();
+                // System.out.println("inserer l'etat du l'actuateur ");
+                // act.etat = sc.nextLine(); 
+                // System.out.println("inserer le type du l'actuateur ");
+                // act.typeActuateur  = sc.nextLine();     
+                // UserInputMu.showObjet();
+                // System.out.println("choisissez de l'ajouter a quelle microcontrolleur : ");
+                // int choicemu = sc.nextInt();      
                 try {
                     //source :https://www.geeksforgeeks.org/simplifying-crud-operation-with-jdbc/
                     
                      
-                    String sql = "INSERT INTO Obj (objetcon_id, nom,etat,objet_type) VALUES (?, ?, ?, ?) RETURNING objet_id";
+                    String sql = "INSERT INTO Obj (objetcon_id, nom,etat,objet_type) VALUES (?, ?, ?) RETURNING objet_id";
                     String sql2  = "INSERT INTO Actuateur (objet_id,action ,type_actuateur) VALUES (?, ?,?)";
 
 
                             // statement2.setInt(2, cpt.idCapteur);
                     try (PreparedStatement statement = CheckDb.con.prepareStatement(sql)) {
                         // statement.setInt(1, act.id);
-                        statement.setInt(1,choicemu);
-                        statement.setString(2, act.nom);
-                        statement.setString(3, act.typeObjet);
-                        statement.setString(4, act.etat);
+                        // statement.setInt(1,choicemu);
+                        statement.setString(1, act.nom);
+                        statement.setString(2, act.typeObjet);
+                        statement.setString(3, act.etat);
                         ResultSet generatedKeys = statement.executeQuery();
                     if (generatedKeys.next()) {
                         act.id = generatedKeys.getInt(1);

@@ -2,6 +2,8 @@ package jdbc;
 
 //this code was taken from a tutorial on : geeksforgeeks website with some minor moddifications
 import java.net.InetSocketAddress;
+
+import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -18,6 +20,14 @@ public class Main {
 
         
         server.createContext("/data", new  TheHttpHandler());
+        TheHttpHandler httpchoice = new  TheHttpHandler();
+        HttpContext resultchoice = server.createContext("/datachoice", httpchoice);
+        TheHttpHandler httpdata = new  TheHttpHandler();
+        HttpContext resultdata = server.createContext("/data", httpdata);
+        // TheHttpHandler httpchoiceMu = new  TheHttpHandler();
+        // HttpContext resultchoiceMu = server.createContext("/datachoiceMu", httpchoiceMu);
+        // TheHttpHandler httpchoiceAppareil = new  TheHttpHandler();
+        // HttpContext resultchoiceAppareil = server.createContext("/datachoiceAppareil", httpchoiceAppareil);
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor)Executors.newFixedThreadPool(10);
 
         server.setExecutor(threadPoolExecutor);
@@ -28,23 +38,49 @@ public class Main {
         CheckDb check = new CheckDb();
         
         check.check();
-        switch (UserInput.choixMenu()) {
-                case 1:
-                UserInput.insertObjet();
-                        break;
-                case 2:
-                UserInput.modifieobjet();
-                        break;
-                case 3:
-                UserInput.showObjet();
+        if(httpchoice.getRequestBody()=="1"){
+                switch (httpchoice.getRequestBody()) {
+                        case "11":
+                        UserInputMu.insertObjet(httpdata.getRequestBody());
+                                break;
+                        case "12":
+                        UserInputMu.modifieobjet(httpdata.getRequestBody());
+                                break;
+                        case "13":
+                        UserInputMu.showObjet(httpdata.getRequestBody());
+        
+                                break;
+                        case "14":
+                        UserInputMu.supprimerobjet(httpdata.getRequestBody());
+                                break;
+        
+                        default:
+                                break;
+                }               
 
-                        break;
-                case 4:
-                UserInput.supprimerobjet();
-                        break;
-
-                default:
-                        break;
+        }else{
+                if(httpchoice.getRequestBody()=="2"){
+                        switch (httpchoice.getRequestBody()) {
+                                case "21":
+                                UserInputMu.insertObjet(httpdata.getRequestBody());
+                                        break;
+                                case "22":
+                                UserInputMu.modifieobjet(httpdata.getRequestBody());
+                                        break;
+                                case "23":
+                                UserInputMu.showObjet(httpdata.getRequestBody());
+                
+                                        break;
+                                case "24":
+                                UserInputMu.supprimerobjet(httpdata.getRequestBody());
+                                        break;
+                
+                                default:
+                                        break;
+                        }               
+        
+                }               
         }
+
         }
 }

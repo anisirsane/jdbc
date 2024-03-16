@@ -4,20 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
         import java.util.*;
 public class UserInputMu{
-        public static int choixMenu(){
-            Scanner choice = new Scanner(System.in);
-            //affichage des options de menu
-            System.out.println ("Menu:choisir un des fonctionalites du CRUD");
-            System.out.println ("1. creer un nouveau microcontrolleur: ");
-            System.out.println ("2. modifier un microcontrolleur: ");
-            System.out.println ("3. affichet touts les microcontrolleurs: ");
-            System.out.println ("4. supprimer un microcontrolleur: ");
-            System.out.println ("Entrez votre choix:");
-            //recuperation de choix et les retourner
-            int choix = choice.nextInt();   
-            return choix;
-            } 
-        public static void insertObjet() throws Exception {
+        public static void insertObjet(String string) throws Exception {
             Scanner sc = new Scanner(System.in);
                 ObjetConnecte objcn = new ObjetConnecte();
 
